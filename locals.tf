@@ -1,7 +1,7 @@
 locals {
   common_tags = {
     Environment = var.environment
-    ManagedBy   = "Terraform"    
+    ManagedBy   = "Terraform"
     Compliance  = "CAF"
   }
 }
