@@ -8,6 +8,8 @@ inc: India Central (Region)
 001: First instance (Sequence)
 
 ## useful commands ##
-> 
+> terraform init -backend-config=./backend/dev.hcl
 > terraform fmt -recursive
 > terraform validate
+> terraform plan -var-file=environments/dev.tfvars
+> terraform apply -var-file=environments/dev.tfvars
