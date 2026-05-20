@@ -52,24 +52,24 @@ subnets = {
     subnet_name        = "AzureFirewallSubnet"
     resource_group_key = "hub"
     vnet_key           = "hub-vnet"
-    address_prefixes = ["10.48.1.0/24"]
+    address_prefixes   = ["10.48.1.0/24"]
   }
   azure-bastion-subnet = {
     subnet_name        = "AzureBastionSubnet"
     resource_group_key = "hub"
     vnet_key           = "hub-vnet"
-    address_prefixes = ["10.48.2.0/24"]
-  }  
+    address_prefixes   = ["10.48.2.0/24"]
+  }
   agw-subnet = {
     subnet_name        = "snet-agw-dev-cindia-001"
     resource_group_key = "hub"
     vnet_key           = "hub-vnet"
-    address_prefixes = ["10.48.3.0/24"]
+    address_prefixes   = ["10.48.3.0/24"]
   }
   web-subnet = {
     subnet_name        = "snet-web-dev-cindia-001"
     resource_group_key = "spoke"
     vnet_key           = "spoke-vnet"
-    address_prefixes = ["10.49.1.0/24"]
+    address_prefixes   = ["10.49.1.0/24"]
   }
 }
