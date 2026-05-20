@@ -21,3 +21,12 @@ module "vnets" {
     each.value.tags
   )
 }
+
+module "subnets" {
+  source   = "./modules/subnet"
+  for_each = var.subnets
+  subnet_name = each.value.subnet_name
+  resource_group_name = module.resource_groups[each.value.resource_group_key].resource_group_name
+  virtual_network_name = module.vnets[each.value.vnet_key].vnet_name
+  address_prefixes = each.value.address_prefixes
+}

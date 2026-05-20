@@ -22,3 +22,13 @@ variable "vnets" {
     tags               = optional(map(string), {})
   }))
 }
+
+variable "subnets" {
+  description = "Map of subnets"
+  type = map(object({
+    subnet_name        = string
+    resource_group_key = string
+    vnet_key           = string
+    address_prefixes   = list(string)
+  }))
+}
