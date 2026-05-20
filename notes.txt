@@ -1,0 +1,8 @@
+### CAF (Cloud Adoption Framework) naming convention ###
+<resource-type>-<workload/application>-<environment>-<region>-<instance>
+Example: vm-webapp-prod-inc-001
+vm: Virtual Machine (Resource Type)
+webapp: Web Application (Workload)
+prod: Production (Environment)
+inc: India Central (Region)
+001: First instance (Sequence)
