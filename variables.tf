@@ -32,3 +32,16 @@ variable "subnets" {
     address_prefixes   = list(string)
   }))
 }
+
+variable "peerings" {
+  description = "Map of VNet peerings"
+  type = map(object({
+    peering_name         = string
+    resource_group_key   = string
+    source_vnet_key      = string
+    remote_vnet_key      = string
+    allow_forwarded_traffic = optional(bool, true)
+    allow_gateway_transit = optional(bool, false)
+    use_remote_gateways = optional(bool, false)
+  }))
+}

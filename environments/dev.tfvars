@@ -73,3 +73,22 @@ subnets = {
     address_prefixes   = ["10.49.1.0/24"]
   }
 }
+
+peerings = {
+  hub-to-spoke = {
+    peering_name       = "peering-hub-to-spoke-dev-cindia-001"
+    resource_group_key = "hub"
+    source_vnet_key = "hub-vnet"
+    remote_vnet_key = "spoke-vnet"
+    allow_forwarded_traffic = true
+    allow_gateway_transit   = true
+  }
+  spoke-to-hub = {
+    peering_name       = "peering-spoke-to-hub-dev-cindia-001"
+    resource_group_key = "spoke"
+    source_vnet_key = "spoke-vnet"
+    remote_vnet_key = "hub-vnet"
+    allow_forwarded_traffic = true
+    use_remote_gateways = true
+  }
+}
