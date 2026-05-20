@@ -6,3 +6,8 @@ webapp: Web Application (Workload)
 prod: Production (Environment)
 inc: India Central (Region)
 001: First instance (Sequence)
+
+## useful commands ##
+> 
+> terraform fmt -recursive
+> terraform validate
