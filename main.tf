@@ -10,12 +10,12 @@ module "resource_groups" {
 }
 
 module "vnets" {
-  source = "./modules/vnet"
-  for_each = var.vnets
-  vnet_name = each.value.vnet_name
-  location = each.value.location
+  source              = "./modules/vnet"
+  for_each            = var.vnets
+  vnet_name           = each.value.vnet_name
+  location            = each.value.location
   resource_group_name = module.resource_groups[each.value.resource_group_key].resource_group_name
-  address_space = each.value.address_space
+  address_space       = each.value.address_space
   tags = merge(
     local.common_tags,
     each.value.tags

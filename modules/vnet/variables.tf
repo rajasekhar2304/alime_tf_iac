@@ -1,24 +1,24 @@
 variable "vnet_name" {
   description = "Name of the virtual network"
-  type = string
+  type        = string
 }
 
 variable "location" {
   description = "The Azure region where the vnet will be created"
-  type = string
+  type        = string
 }
 
 variable "resource_group_name" {
   description = "RG name"
-  type = string
+  type        = string
 }
 
 variable "address_space" {
   description = "Address space for vnet"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "tags" {
   description = "Tags for vnet"
-  type = map(string)
+  type        = map(string)
 }

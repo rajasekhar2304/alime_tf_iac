@@ -1,11 +1,11 @@
 variable "rg_location" {
   description = "The Azure region where the Resource Group will be created"
-  type        = string  
+  type        = string
 }
 
 variable "rg_name" {
   description = "The name of the Resource Group"
-  type        = string  
+  type        = string
 }
 
 variable "tags" {
