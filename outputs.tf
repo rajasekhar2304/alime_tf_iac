@@ -7,7 +7,7 @@ output "resource_group_names" {
 
 output "vnet_names" {
   value = {
-    for k, vnet in modules.vnets :
+    for k, vnet in module.vnets :
     k => vnet.vnet_name
   }
 }
