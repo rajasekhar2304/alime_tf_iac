@@ -11,3 +11,10 @@ output "vnet_names" {
     k => vnet.vnet_name
   }
 }
+
+output "subnet_names" {
+  value = {
+    for k, subnet in module.subnets :
+    k => subnet.subnet_name
+  }
+}
