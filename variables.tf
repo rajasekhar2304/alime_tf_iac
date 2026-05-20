@@ -40,6 +40,7 @@ variable "peerings" {
     resource_group_key      = string
     source_vnet_key         = string
     remote_vnet_key         = string
+    allow_virtual_network_access = optional(bool,true)
     allow_forwarded_traffic = optional(bool, true)
     allow_gateway_transit   = optional(bool, false)
     use_remote_gateways     = optional(bool, false)

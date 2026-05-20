@@ -80,15 +80,15 @@ peerings = {
     resource_group_key      = "hub"
     source_vnet_key         = "hub-vnet"
     remote_vnet_key         = "spoke-vnet"
-    allow_forwarded_traffic = true
-    allow_gateway_transit   = true
+    allow_virtual_network_access = true
+    allow_forwarded_traffic = true    
   }
   spoke-to-hub = {
     peering_name            = "peering-spoke-to-hub-dev-cindia-001"
     resource_group_key      = "spoke"
     source_vnet_key         = "spoke-vnet"
     remote_vnet_key         = "hub-vnet"
-    allow_forwarded_traffic = true
-    use_remote_gateways     = true
+    allow_virtual_network_access = true
+    allow_forwarded_traffic = true    
   }
 }
