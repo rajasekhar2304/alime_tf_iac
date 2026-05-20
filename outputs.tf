@@ -4,3 +4,10 @@ output "resource_group_names" {
     k => rg.resource_group_name
   }
 }
+
+output "vnet_names" {
+  value = {
+    for k, vnet in modules.vnets :
+    k => vnet.vnet_name
+  }
+}

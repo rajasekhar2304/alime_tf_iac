@@ -11,3 +11,14 @@ variable "resource_groups" {
     tags        = optional(map(string), {})
   }))
 }
+
+variable "vnets" {
+  description = "Map of VNets"
+  type = map(object({
+    vnet_name = string
+    location = string
+    resource_group_key = string
+    address_space = list(string)
+    tags        = optional(map(string), {})
+  }))
+}
