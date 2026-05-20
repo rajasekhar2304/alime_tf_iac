@@ -32,13 +32,13 @@ module "subnets" {
 }
 
 module "peerings" {
-  source   = "./modules/peering"
-  for_each = var.peerings
-  peering_name = each.value.peering_name
-  resource_group_name = module.resource_groups[each.value.resource_group_key].resource_group_name
-  virtual_network_name = module.vnets[each.value.source_vnet_key].vnet_name
+  source                    = "./modules/peering"
+  for_each                  = var.peerings
+  peering_name              = each.value.peering_name
+  resource_group_name       = module.resource_groups[each.value.resource_group_key].resource_group_name
+  virtual_network_name      = module.vnets[each.value.source_vnet_key].vnet_name
   remote_virtual_network_id = module.vnets[each.value.remote_vnet_key].vnet_id
-  allow_forwarded_traffic = each.value.allow_forwarded_traffic
-  allow_gateway_transit = each.value.allow_gateway_transit
-  use_remote_gateways = each.value.use_remote_gateways
+  allow_forwarded_traffic   = each.value.allow_forwarded_traffic
+  allow_gateway_transit     = each.value.allow_gateway_transit
+  use_remote_gateways       = each.value.use_remote_gateways
 }
