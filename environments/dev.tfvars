@@ -76,52 +76,52 @@ subnets = {
 
 peerings = {
   hub-to-spoke = {
-    peering_name            = "peering-hub-to-spoke-dev-cindia-001"
-    resource_group_key      = "hub"
-    source_vnet_key         = "hub-vnet"
-    remote_vnet_key         = "spoke-vnet"
+    peering_name                 = "peering-hub-to-spoke-dev-cindia-001"
+    resource_group_key           = "hub"
+    source_vnet_key              = "hub-vnet"
+    remote_vnet_key              = "spoke-vnet"
     allow_virtual_network_access = true
-    allow_forwarded_traffic = true    
+    allow_forwarded_traffic      = true
   }
   spoke-to-hub = {
-    peering_name            = "peering-spoke-to-hub-dev-cindia-001"
-    resource_group_key      = "spoke"
-    source_vnet_key         = "spoke-vnet"
-    remote_vnet_key         = "hub-vnet"
+    peering_name                 = "peering-spoke-to-hub-dev-cindia-001"
+    resource_group_key           = "spoke"
+    source_vnet_key              = "spoke-vnet"
+    remote_vnet_key              = "hub-vnet"
     allow_virtual_network_access = true
-    allow_forwarded_traffic = true    
+    allow_forwarded_traffic      = true
   }
 }
 
 nsgs = {
   web-nsg = {
-    nsg_name = "nsg-web-dev-cindia-001"
+    nsg_name           = "nsg-web-dev-cindia-001"
     resource_group_key = "spoke"
-    subnet_key = "web-subnet"
-    location = "Central India"
+    subnet_key         = "web-subnet"
+    location           = "Central India"
     security_rules = {
 
       allow-http-from-firewall = {
-        name = "allow-http-from-firewall"
-        priority = 100
-        direction = "Inbound"
-        access = "Allow"
-        protocol = "Tcp"
-        source_port_range = "*"
-        destination_port_range = "80"
-        source_address_prefix = "10.48.1.0/24"
+        name                       = "allow-http-from-firewall"
+        priority                   = 100
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "80"
+        source_address_prefix      = "10.48.1.0/24"
         destination_address_prefix = "*"
       }
 
       allow-rdp-from-firewall = {
-        name = "allow-rdp-from-firewall"
-        priority = 110
-        direction = "Inbound"
-        access = "Allow"
-        protocol = "Tcp"
-        source_port_range = "*"
-        destination_port_range = "3389"
-        source_address_prefix = "10.48.1.0/24"
+        name                       = "allow-rdp-from-firewall"
+        priority                   = 110
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "3389"
+        source_address_prefix      = "10.48.1.0/24"
         destination_address_prefix = "*"
       }
     }

@@ -44,7 +44,7 @@ module "peerings" {
 }
 
 module "nsgs" {
-  source = "./modules/nsg"
+  source   = "./modules/nsg"
   for_each = var.nsgs
   nsg_name = each.value.nsg_name
   location = each.value.location
