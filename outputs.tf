@@ -18,3 +18,10 @@ output "subnet_names" {
     k => subnet.subnet_name
   }
 }
+
+output "nsg_names" {
+  value = {
+    for k, nsg in module.nsgs :
+    k => nsg.nsg_name
+  }
+}
