@@ -93,6 +93,7 @@ module "windows_vms" {
   source   = "./modules/windows-vm"
   for_each = var.windows_vms
   vm_name  = each.value.vm_name
+  computer_name = each.value.computer_name
   location = each.value.location
 
   resource_group_name = module.resource_groups[

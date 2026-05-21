@@ -1,5 +1,6 @@
 resource "azurerm_windows_virtual_machine" "vm" {
   name                  = var.vm_name
+  computer_name         = var.computer_name
   location              = var.location
   resource_group_name   = var.resource_group_name
   size                  = var.size

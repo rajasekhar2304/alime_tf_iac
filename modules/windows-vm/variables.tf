@@ -3,6 +3,11 @@ variable "vm_name" {
   type        = string
 }
 
+variable "computer_name" {
+  description = "Windows computer hostname"
+  type        = string
+}
+
 variable "location" {
   description = "Azure region"
   type        = string

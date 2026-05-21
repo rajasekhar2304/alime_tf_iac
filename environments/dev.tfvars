@@ -145,6 +145,7 @@ nics = {
 windows_vms = {
   web = {
     vm_name            = "vm-web-dev-cindia-001"
+    computer_name      = "webdev01"
     location           = "Central India"
     resource_group_key = "spoke"
     nic_keys = [

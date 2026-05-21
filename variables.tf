@@ -86,6 +86,7 @@ variable "windows_vms" {
   description = "Map of Windows VMs"
   type = map(object({
     vm_name            = string
+    computer_name      = string
     location           = string
     resource_group_key = string
     nic_keys           = list(string)
