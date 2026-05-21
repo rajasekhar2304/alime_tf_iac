@@ -42,3 +42,21 @@ module "peerings" {
   allow_gateway_transit     = each.value.allow_gateway_transit
   use_remote_gateways       = each.value.use_remote_gateways
 }
+
+module "nsgs" {
+  source = "./modules/nsg"
+  for_each = var.nsgs
+  nsg_name = each.value.nsg_name
+  location = each.value.location
+  resource_group_name = module.resource_groups[
+    each.value.resource_group_key
+  ].resource_group_name
+  subnet_id = module.subnets[
+    each.value.subnet_key
+  ].subnet_id
+  tags = merge(
+    local.common_tags,
+    each.value.tags
+  )
+  security_rules = each.value.security_rules
+}

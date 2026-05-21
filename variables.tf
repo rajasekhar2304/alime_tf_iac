@@ -46,3 +46,25 @@ variable "peerings" {
     use_remote_gateways     = optional(bool, false)
   }))
 }
+
+variable "nsgs" {
+  description = "Map of NSGs"
+  type = map(object({
+    nsg_name = string
+    resource_group_key = string
+    subnet_key = string
+    location = string
+    tags = optional(map(string), {})
+    security_rules = map(object({
+      name = string
+      priority = number
+      direction = string
+      access = string
+      protocol = string
+      source_port_range = string
+      destination_port_range = string
+      source_address_prefix = string
+      destination_address_prefix = string
+    }))
+  }))
+}

@@ -92,3 +92,38 @@ peerings = {
     allow_forwarded_traffic = true    
   }
 }
+
+nsgs = {
+  web-nsg = {
+    nsg_name = "nsg-web-dev-cindia-001"
+    resource_group_key = "spoke"
+    subnet_key = "web-subnet"
+    location = "Central India"
+    security_rules = {
+
+      allow-http-from-firewall = {
+        name = "allow-http-from-firewall"
+        priority = 100
+        direction = "Inbound"
+        access = "Allow"
+        protocol = "Tcp"
+        source_port_range = "*"
+        destination_port_range = "80"
+        source_address_prefix = "10.48.1.0/24"
+        destination_address_prefix = "*"
+      }
+
+      allow-rdp-from-firewall = {
+        name = "allow-rdp-from-firewall"
+        priority = 110
+        direction = "Inbound"
+        access = "Allow"
+        protocol = "Tcp"
+        source_port_range = "*"
+        destination_port_range = "3389"
+        source_address_prefix = "10.48.1.0/24"
+        destination_address_prefix = "*"
+      }
+    }
+  }
+}
