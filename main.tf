@@ -64,7 +64,7 @@ module "nsgs" {
 }
 
 module "nics" {
-  source = "./modules/nic"
+  source   = "./modules/nic"
   for_each = var.nics
   nic_name = each.value.nic_name
   location = each.value.location
@@ -90,9 +90,9 @@ module "nics" {
 }
 
 module "windows_vms" {
-  source = "./modules/windows-vm"
+  source   = "./modules/windows-vm"
   for_each = var.windows_vms
-  vm_name = each.value.vm_name
+  vm_name  = each.value.vm_name
   location = each.value.location
 
   resource_group_name = module.resource_groups[
@@ -104,10 +104,10 @@ module "windows_vms" {
     module.nics[nic_key].nic_id
   ]
 
-  admin_username = data.azurerm_key_vault_secret.vm_admin_username.value
-  admin_password = data.azurerm_key_vault_secret.vm_admin_password.value
-  size = each.value.size
-  os_disk = each.value.os_disk
+  admin_username         = data.azurerm_key_vault_secret.vm_admin_username.value
+  admin_password         = data.azurerm_key_vault_secret.vm_admin_password.value
+  size                   = each.value.size
+  os_disk                = each.value.os_disk
   source_image_reference = each.value.source_image_reference
   tags = merge(
     local.common_tags,
@@ -116,16 +116,16 @@ module "windows_vms" {
 }
 
 module "vm_extensions" {
-  source = "./modules/vm-extension"
-  for_each = var.vm_extensions
+  source         = "./modules/vm-extension"
+  for_each       = var.vm_extensions
   extension_name = each.value.extension_name
 
   virtual_machine_id = module.windows_vms[
     each.value.vm_key
   ].vm_id
 
-  publisher = each.value.publisher
-  type = each.value.type
+  publisher            = each.value.publisher
+  type                 = each.value.type
   type_handler_version = each.value.type_handler_version
 
   auto_upgrade_minor_version = (

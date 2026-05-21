@@ -130,12 +130,12 @@ nsgs = {
 
 nics = {
   web = {
-    nic_name = "nic-web-dev-cindia-001"
-    location = "Central India"
-    resource_group_key = "spoke"
-    subnet_key = "web-subnet"
+    nic_name                      = "nic-web-dev-cindia-001"
+    location                      = "Central India"
+    resource_group_key            = "spoke"
+    subnet_key                    = "web-subnet"
     private_ip_address_allocation = "Static"
-    private_ip_address = "10.49.1.10"
+    private_ip_address            = "10.49.1.10"
     tags = {
       role = "web"
     }
@@ -144,22 +144,22 @@ nics = {
 
 windows_vms = {
   web = {
-    vm_name = "vm-web-dev-cindia-001"
-    location = "Central India"
+    vm_name            = "vm-web-dev-cindia-001"
+    location           = "Central India"
     resource_group_key = "spoke"
     nic_keys = [
       "web"
     ]
     size = "Standard_B2als_v2"
     os_disk = {
-      caching = "ReadWrite"
+      caching              = "ReadWrite"
       storage_account_type = "Standard_LRS"
     }
     source_image_reference = {
       publisher = "MicrosoftWindowsServer"
-      offer = "WindowsServer"
-      sku = "2022-datacenter-azure-edition"
-      version = "latest"
+      offer     = "WindowsServer"
+      sku       = "2022-datacenter-azure-edition"
+      version   = "latest"
     }
     tags = {
       role = "web"
@@ -169,13 +169,13 @@ windows_vms = {
 
 vm_extensions = {
   web-iis = {
-    extension_name = "ext-iis-web-dev-cindia-001"
-    vm_key = "web"
-    publisher = "Microsoft.Compute"
-    type = "CustomScriptExtension"
-    type_handler_version = "1.10"
+    extension_name             = "ext-iis-web-dev-cindia-001"
+    vm_key                     = "web"
+    publisher                  = "Microsoft.Compute"
+    type                       = "CustomScriptExtension"
+    type_handler_version       = "1.10"
     auto_upgrade_minor_version = true
-    settings = <<SETTINGS
+    settings                   = <<SETTINGS
 {
   "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -Command \"Install-WindowsFeature -Name Web-Server -IncludeManagementTools; Set-Content -Path 'C:\\\\inetpub\\\\wwwroot\\\\index.html' -Value '<h1>Welcome to Alime Web Server</h1>'\""
 }
