@@ -128,31 +128,6 @@ nsgs = {
   }
 }
 
-windows_vms = {
-  web = {
-    vm_name = "vm-dev-web"
-    location = "Central India"
-    resource_group_key = "spoke"
-    subnet_key = "web-subnet"
-    private_ip_address = "10.49.1.10"
-    size = "Standard_B2s"
-    web_message = "Welcome to Alime Web Server"
-    os_disk = {
-      caching              = "ReadWrite"
-      storage_account_type = "Standard_LRS"
-    }
-    source_image_reference = {
-      publisher = "MicrosoftWindowsServer"
-      offer     = "WindowsServer"
-      sku       = "2022-datacenter-azure-edition"
-      version   = "latest"
-    }
-    tags = {
-      role = "web"
-    }
-  }
-}
-
 nics = {
   web = {
     nic_name = "nic-web-dev-cindia-001"
