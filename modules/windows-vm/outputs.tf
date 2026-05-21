@@ -1,0 +1,11 @@
+output "vm_id" {
+  value = azurerm_windows_virtual_machine.vm.id
+}
+
+output "vm_name" {
+  value = azurerm_windows_virtual_machine.vm.name
+}
+
+output "private_ip_address" {
+  value = azurerm_windows_virtual_machine.vm.private_ip_address
+}

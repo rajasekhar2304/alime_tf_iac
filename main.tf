@@ -48,9 +48,11 @@ module "nsgs" {
   for_each = var.nsgs
   nsg_name = each.value.nsg_name
   location = each.value.location
+
   resource_group_name = module.resource_groups[
     each.value.resource_group_key
   ].resource_group_name
+
   subnet_id = module.subnets[
     each.value.subnet_key
   ].subnet_id
@@ -59,4 +61,75 @@ module "nsgs" {
     each.value.tags
   )
   security_rules = each.value.security_rules
+}
+
+module "nics" {
+  source = "./modules/nic"
+  for_each = var.nics
+  nic_name = each.value.nic_name
+  location = each.value.location
+
+  resource_group_name = module.resource_groups[
+    each.value.resource_group_key
+  ].resource_group_name
+
+  subnet_id = module.subnets[
+    each.value.subnet_key
+  ].subnet_id
+
+  private_ip_address_allocation = (
+    each.value.private_ip_address_allocation
+  )
+
+  private_ip_address = each.value.private_ip_address
+
+  tags = merge(
+    local.common_tags,
+    each.value.tags
+  )
+}
+
+module "windows_vms" {
+  source = "./modules/windows-vm"
+  for_each = var.windows_vms
+  vm_name = each.value.vm_name
+  location = each.value.location
+
+  resource_group_name = module.resource_groups[
+    each.value.resource_group_key
+  ].resource_group_name
+
+  network_interface_ids = [
+    for nic_key in each.value.nic_keys :
+    module.nics[nic_key].nic_id
+  ]
+
+  admin_username = data.azurerm_key_vault_secret.vm_admin_username.value
+  admin_password = data.azurerm_key_vault_secret.vm_admin_password.value
+  size = each.value.size
+  os_disk = each.value.os_disk
+  source_image_reference = each.value.source_image_reference
+  tags = merge(
+    local.common_tags,
+    each.value.tags
+  )
+}
+
+module "vm_extensions" {
+  source = "./modules/vm-extension"
+  for_each = var.vm_extensions
+  extension_name = each.value.extension_name
+
+  virtual_machine_id = module.windows_vms[
+    each.value.vm_key
+  ].vm_id
+
+  publisher = each.value.publisher
+  type = each.value.type
+  type_handler_version = each.value.type_handler_version
+
+  auto_upgrade_minor_version = (
+    each.value.auto_upgrade_minor_version
+  )
+  settings = each.value.settings
 }
