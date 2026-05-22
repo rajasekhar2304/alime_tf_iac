@@ -314,25 +314,6 @@ firewall_application_rules = {
   }
 }
 
-
-route_tables = {
-  spoke-web = {
-    route_table_name = "rt-web-dev-cindia-001"
-    location = "Central India"
-    resource_group_key = "spoke"
-    routes = [
-      {
-        name = "default-route"
-        address_prefix = "0.0.0.0/0"
-        next_hop_type = "VirtualAppliance"
-      }
-    ]
-    tags = {
-      role = "web-routing"
-    }
-  }
-}
-
 route_tables = {
   
   spoke-web = {
