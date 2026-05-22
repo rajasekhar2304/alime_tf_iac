@@ -134,3 +134,165 @@ module "vm_extensions" {
   )
   settings = each.value.settings
 }
+
+module "firewalls" {
+  source = "./modules/firewall"
+  for_each = var.firewalls
+  firewall_name = each.value.firewall_name
+  public_ip_name = each.value.public_ip_name
+  location = each.value.location
+  resource_group_name = module.resource_groups[
+    each.value.resource_group_key
+  ].resource_group_name
+
+  subnet_id = module.subnets[
+    each.value.subnet_key
+  ].subnet_id
+
+  sku_tier = each.value.sku_tier
+  tags = merge(
+    local.common_tags,
+    each.value.tags
+  )
+}
+
+module "firewall_nat_rules" {
+  source = "./modules/firewall-nat-rule"
+  for_each = var.firewall_nat_rules
+  name = each.value.name
+
+  firewall_name = module.firewalls[
+    each.value.firewall_key
+  ].firewall_name
+
+  firewall_public_ip = module.firewalls[
+    each.value.firewall_key
+  ].firewall_public_ip
+
+  resource_group_name = module.resource_groups[
+    each.value.resource_group_key
+  ].resource_group_name
+
+  priority = each.value.priority
+  action = each.value.action
+  rules = each.value.rules
+}
+
+module "firewall_network_rules" {
+  source = "./modules/firewall-network-rule"
+  for_each = var.firewall_network_rules
+  name = each.value.name
+
+  firewall_name = module.firewalls[
+    each.value.firewall_key
+  ].firewall_name
+
+  resource_group_name = module.resource_groups[
+    each.value.resource_group_key
+  ].resource_group_name
+
+  priority = each.value.priority
+  action = each.value.action
+  rules = each.value.rules
+}
+
+module "firewall_application_rules" {
+  source = "./modules/firewall-application-rule"
+  for_each = var.firewall_application_rules
+  name = each.value.name
+
+  firewall_name = module.firewalls[
+    each.value.firewall_key
+  ].firewall_name
+
+  resource_group_name = module.resource_groups[
+    each.value.resource_group_key
+  ].resource_group_name
+
+  priority = each.value.priority
+  action = each.value.action
+  rules = each.value.rules
+}
+
+module "route_tables" {
+  source = "./modules/route-table"
+  for_each = var.route_tables
+  route_table_name = each.value.route_table_name
+  location = each.value.location
+
+  resource_group_name = module.resource_groups[
+    each.value.resource_group_key
+  ].resource_group_name
+
+  routes = [
+    for route in each.value.routes :
+    merge(
+      route,
+      {
+        next_hop_in_ip_address = (
+          route.next_hop_type == "VirtualAppliance"
+        ? module.firewalls["hub"].firewall_private_ip
+        : null
+        )        
+      }
+    )
+  ]
+
+  tags = merge(
+    local.common_tags,
+    each.value.tags
+  )
+}
+
+module "route_table_associations" {
+  source = "./modules/route-table-association"
+  for_each = var.route_table_associations
+  subnet_id = module.subnets[
+    each.value.subnet_key
+  ].subnet_id
+  route_table_id = module.route_tables[
+    each.value.route_table_key
+  ].route_table_id
+}
+
+module "application_gateways" {
+  source = "./modules/application-gateway"
+  for_each = var.application_gateways
+
+  application_gateway_name = (
+    each.value.application_gateway_name
+  )
+
+  public_ip_name = each.value.public_ip_name
+  location = each.value.location
+
+  resource_group_name = module.resource_groups[
+    each.value.resource_group_key
+  ].resource_group_name
+  subnet_id = module.subnets[
+    each.value.subnet_key
+  ].subnet_id
+
+  sku_name = each.value.sku_name
+  sku_tier = each.value.sku_tier
+  capacity = each.value.capacity
+  backend_pool_name = each.value.backend_pool_name
+
+  backend_ip_addresses = (
+    each.value.backend_vm_private_ips
+  )
+  
+  frontend_port_name = each.value.frontend_port_name
+  frontend_port = each.value.frontend_port
+  http_setting_name = each.value.http_setting_name
+  listener_name = each.value.listener_name
+  routing_rule_name = each.value.routing_rule_name
+  probe_name = each.value.probe_name
+  probe_host = each.value.probe_host
+  probe_path = each.value.probe_path
+  tags = merge(
+    local.common_tags,
+    each.value.tags
+  )
+}
+

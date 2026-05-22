@@ -183,3 +183,232 @@ vm_extensions = {
 SETTINGS
   }
 }
+
+firewalls = {
+  hub = {
+    firewall_name = "fw-hub-dev-cindia-001"
+    public_ip_name = "pip-fw-hub-dev-cindia-001"
+    location = "Central India"
+    resource_group_key = "hub"
+    subnet_key = "azure-firewall-subnet"
+    sku_tier = "Basic"
+    tags = {
+      role = "firewall"
+    }
+  }
+}
+
+firewall_nat_rules = {
+  rdp = {
+    firewall_key = "hub"
+    resource_group_key = "hub"
+    name = "rcg-dnat-rdp-dev-cindia-001"
+    priority = 100
+    action = "Dnat"
+    rules = [
+      {
+        name = "dnat-rdp"
+        source_addresses = [
+          "YOUR_PUBLIC_IP"
+        ]
+        destination_ports = [
+          "3389"
+        ]
+        translated_address = "10.49.1.10"
+        translated_port = "3389"
+        protocols = [
+          "TCP"
+        ]
+      }
+    ]
+  }
+}
+
+firewall_network_rules = {
+  web = {
+    firewall_key = "hub"
+    resource_group_key = "hub"
+    name = "rcg-network-dev-cindia-001"
+    priority = 200
+    action = "Allow"
+    rules = [
+      {
+        name = "allow-agw-to-vm-http"
+        source_addresses = [
+          "10.48.3.0/24"
+        ]
+        destination_addresses = [
+          "10.49.1.10"
+        ]
+        destination_ports = [
+          "80"
+        ]
+        protocols = [
+          "TCP"
+        ]
+      }
+    ]
+  }
+}
+
+firewall_application_rules = {
+  
+  block-google = {
+    firewall_key = "hub"
+    resource_group_key = "hub"
+    name = "rcg-block-google-dev-cindia-001"
+    priority = 100
+    action = "Deny"
+    rules = [
+      {
+        name = "deny-google"
+        source_addresses = [
+          "10.49.1.0/24"
+        ]
+        target_fqdns = [
+          "google.com",
+          "*.google.com"
+        ]
+        protocols = [
+          {
+            type = "Http"
+            port = 80
+          },
+          {
+            type = "Https"
+            port = 443
+          }
+        ]
+      }
+    ]
+  }
+
+  allow-windows-update = {
+    firewall_key = "hub"
+    resource_group_key = "hub"
+    name = "rcg-app-dev-cindia-001"
+    priority = 200
+    action = "Allow"
+    rules = [
+      {
+        name = "allow-windows-update"
+        source_addresses = [
+          "10.49.1.0/24"
+        ]
+        target_fqdns = [
+          "*.windowsupdate.com",
+          "*.update.microsoft.com"
+        ]
+        protocols = [
+          {
+            type = "Http"
+            port = 80
+          },
+          {
+            type = "Https"
+            port = 443
+          }
+        ]
+      }
+    ]
+  }
+}
+
+
+route_tables = {
+  spoke-web = {
+    route_table_name = "rt-web-dev-cindia-001"
+    location = "Central India"
+    resource_group_key = "spoke"
+    routes = [
+      {
+        name = "default-route"
+        address_prefix = "0.0.0.0/0"
+        next_hop_type = "VirtualAppliance"
+      }
+    ]
+    tags = {
+      role = "web-routing"
+    }
+  }
+}
+
+route_tables = {
+  
+  spoke-web = {
+    route_table_name = "rt-web-dev-cindia-001"
+    location = "Central India"
+    resource_group_key = "spoke"
+    routes = [
+      {
+        name = "default-route"
+        address_prefix = "0.0.0.0/0"
+        next_hop_type = "VirtualAppliance"
+      }
+    ]
+    tags = {
+      role = "web-routing"
+    }
+  }
+
+  agw = {
+    route_table_name = "rt-agw-dev-cindia-001"
+    location = "Central India"
+    resource_group_key = "hub"
+    routes = [
+      {
+        name = "spoke-vnet-route"
+        address_prefix = "10.49.0.0/16"
+        next_hop_type = "VirtualAppliance"
+      }
+    ]
+    tags = {
+      role = "agw-routing"
+    }
+  }
+}
+
+route_table_associations = {
+  
+  web = {
+    subnet_key = "web-subnet"
+    route_table_key = "spoke-web"
+  }
+  
+  agw = {
+    subnet_key = "agw-subnet"
+    route_table_key = "agw"
+  }
+}
+
+application_gateways = {
+  agw = {
+    application_gateway_name = "agw-dev-cindia-001"
+    public_ip_name = "pip-agw-dev-cindia-001"
+    location = "Central India"
+    resource_group_key = "hub"
+    subnet_key = "agw-subnet"
+    sku_name = "Standard_v2"
+    sku_tier = "Standard_v2"
+    capacity = 1
+    backend_pool_name = "be-web-dev-cindia-001"
+    backend_vm_private_ips = [
+      "10.49.1.10"
+    ]
+    frontend_port_name = "fp-http"
+    frontend_port = 80
+    http_setting_name = "bhs-http"
+    listener_name = "listener-http"
+    routing_rule_name = "rule-http"
+    probe_name = "probe-http"
+    probe_host = "127.0.0.1"
+    probe_path = "/"
+    tags = {
+      role = "application-gateway"
+    }
+  }
+}
+
+
+
+
