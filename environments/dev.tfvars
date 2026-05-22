@@ -191,7 +191,7 @@ firewalls = {
     location           = "Central India"
     resource_group_key = "hub"
     subnet_key         = "azure-firewall-subnet"
-    sku_tier           = "Basic"
+    sku_tier           = "Standard"
     tags = {
       role = "firewall"
     }
