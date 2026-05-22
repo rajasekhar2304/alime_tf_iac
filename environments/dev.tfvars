@@ -209,7 +209,7 @@ firewall_nat_rules = {
       {
         name = "dnat-rdp"
         source_addresses = [
-          "YOUR_PUBLIC_IP"
+          "49.204.16.78"
         ]
         destination_ports = [
           "3389"
