@@ -94,50 +94,6 @@ peerings = {
 }
 
 nsgs = {
-  agw = {
-    nsg_name           = "nsg-agw-dev-cindia-001"
-    location           = "Central India"
-    resource_group_key = "hub"
-    subnet_key         = "agw-subnet"
-    security_rules = {
-      allow-gateway-manager = {
-        name                       = "allow-gateway-manager"
-        priority                   = 100
-        direction                  = "Inbound"
-        access                     = "Allow"
-        protocol                   = "Tcp"
-        source_port_range          = "*"
-        destination_port_range     = "65200-65535"
-        source_address_prefix      = "GatewayManager"
-        destination_address_prefix = "*"
-      }
-      allow-azure-load-balancer = {
-        name                       = "allow-azure-load-balancer"
-        priority                   = 110
-        direction                  = "Inbound"
-        access                     = "Allow"
-        protocol                   = "*"
-        source_port_range          = "*"
-        destination_port_range     = "*"
-        source_address_prefix      = "AzureLoadBalancer"
-        destination_address_prefix = "*"
-      }
-      allow-http-internet = {
-        name                       = "allow-http-internet"
-        priority                   = 120
-        direction                  = "Inbound"
-        access                     = "Allow"
-        protocol                   = "Tcp"
-        source_port_range          = "*"
-        destination_port_range     = "80"
-        source_address_prefix      = "Internet"
-        destination_address_prefix = "*"
-      }
-    }
-    tags = {
-      role = "application-gateway"
-    }
-  }
   web-nsg = {
     nsg_name           = "nsg-web-dev-cindia-001"
     resource_group_key = "spoke"
