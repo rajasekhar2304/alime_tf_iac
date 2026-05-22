@@ -123,14 +123,14 @@ nsgs = {
         destination_address_prefix = "*"
       }
       allow-http-from-agw = {
-        name = "allow-http-from-agw"
-        priority = 105
-        direction = "Inbound"
-        access = "Allow"
-        protocol = "Tcp"
-        source_port_range = "*"
-        destination_port_range = "80"
-        source_address_prefix = "10.48.3.0/24"
+        name                       = "allow-http-from-agw"
+        priority                   = 105
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "80"
+        source_address_prefix      = "10.48.3.0/24"
         destination_address_prefix = "*"
       }
     }
