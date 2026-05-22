@@ -225,12 +225,12 @@ firewall_nat_rules = {
 }
 
 firewall_network_rules = {
-  web = {
+  agw = {
     firewall_key       = "hub"
     resource_group_key = "hub"
-    name               = "rcg-network-dev-cindia-001"
-    priority           = 200
-    action             = "Allow"
+    name = "rcg-agw-network-dev-cindia-001"
+    priority = 100
+    action = "Allow"
     rules = [
       {
         name = "allow-agw-to-vm-http"
@@ -256,9 +256,9 @@ firewall_application_rules = {
   block-google = {
     firewall_key       = "hub"
     resource_group_key = "hub"
-    name               = "rcg-block-google-dev-cindia-001"
-    priority           = 100
-    action             = "Deny"
+    name = "rcg-block-google-dev-cindia-001"
+    priority = 100
+    action = "Deny"
     rules = [
       {
         name = "deny-google"
@@ -283,12 +283,41 @@ firewall_application_rules = {
     ]
   }
 
+  allow-internet = {
+    firewall_key       = "hub"
+    resource_group_key = "hub"
+    name = "rcg-allow-internet-dev-cindia-001"
+    priority = 200
+    action = "Allow"
+    rules = [
+      {
+        name = "allow-general-internet"
+        source_addresses = [
+          "10.49.1.0/24"
+        ]
+        target_fqdns = [
+          "*"
+        ]
+        protocols = [
+          {
+            type = "Http"
+            port = 80
+          },
+          {
+            type = "Https"
+            port = 443
+          }
+        ]
+      }
+    ]
+  }
+
   allow-windows-update = {
     firewall_key       = "hub"
     resource_group_key = "hub"
-    name               = "rcg-app-dev-cindia-001"
-    priority           = 200
-    action             = "Allow"
+    name = "rcg-app-dev-cindia-001"
+    priority = 300
+    action = "Allow"
     rules = [
       {
         name = "allow-windows-update"
@@ -382,7 +411,7 @@ application_gateways = {
     listener_name      = "listener-http"
     routing_rule_name  = "rule-http"
     probe_name         = "probe-http"
-    probe_host         = "127.0.0.1"
+    probe_host         = "localhost"
     probe_path         = "/"
     tags = {
       role = "application-gateway"
