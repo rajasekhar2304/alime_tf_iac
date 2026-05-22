@@ -26,12 +26,12 @@ variable "action" {
 variable "rules" {
   description = "NAT rules"
   type = list(object({
-    name                 = string
-    source_addresses     = list(string)
-    destination_ports    = list(string)
-    translated_address   = string
-    translated_port      = string
-    protocols            = list(string)
+    name               = string
+    source_addresses   = list(string)
+    destination_ports  = list(string)
+    translated_address = string
+    translated_port    = string
+    protocols          = list(string)
   }))
 }
 

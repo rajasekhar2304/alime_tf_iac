@@ -186,12 +186,12 @@ SETTINGS
 
 firewalls = {
   hub = {
-    firewall_name = "fw-hub-dev-cindia-001"
-    public_ip_name = "pip-fw-hub-dev-cindia-001"
-    location = "Central India"
+    firewall_name      = "fw-hub-dev-cindia-001"
+    public_ip_name     = "pip-fw-hub-dev-cindia-001"
+    location           = "Central India"
     resource_group_key = "hub"
-    subnet_key = "azure-firewall-subnet"
-    sku_tier = "Basic"
+    subnet_key         = "azure-firewall-subnet"
+    sku_tier           = "Basic"
     tags = {
       role = "firewall"
     }
@@ -200,11 +200,11 @@ firewalls = {
 
 firewall_nat_rules = {
   rdp = {
-    firewall_key = "hub"
+    firewall_key       = "hub"
     resource_group_key = "hub"
-    name = "rcg-dnat-rdp-dev-cindia-001"
-    priority = 100
-    action = "Dnat"
+    name               = "rcg-dnat-rdp-dev-cindia-001"
+    priority           = 100
+    action             = "Dnat"
     rules = [
       {
         name = "dnat-rdp"
@@ -215,7 +215,7 @@ firewall_nat_rules = {
           "3389"
         ]
         translated_address = "10.49.1.10"
-        translated_port = "3389"
+        translated_port    = "3389"
         protocols = [
           "TCP"
         ]
@@ -226,11 +226,11 @@ firewall_nat_rules = {
 
 firewall_network_rules = {
   web = {
-    firewall_key = "hub"
+    firewall_key       = "hub"
     resource_group_key = "hub"
-    name = "rcg-network-dev-cindia-001"
-    priority = 200
-    action = "Allow"
+    name               = "rcg-network-dev-cindia-001"
+    priority           = 200
+    action             = "Allow"
     rules = [
       {
         name = "allow-agw-to-vm-http"
@@ -252,13 +252,13 @@ firewall_network_rules = {
 }
 
 firewall_application_rules = {
-  
+
   block-google = {
-    firewall_key = "hub"
+    firewall_key       = "hub"
     resource_group_key = "hub"
-    name = "rcg-block-google-dev-cindia-001"
-    priority = 100
-    action = "Deny"
+    name               = "rcg-block-google-dev-cindia-001"
+    priority           = 100
+    action             = "Deny"
     rules = [
       {
         name = "deny-google"
@@ -284,11 +284,11 @@ firewall_application_rules = {
   }
 
   allow-windows-update = {
-    firewall_key = "hub"
+    firewall_key       = "hub"
     resource_group_key = "hub"
-    name = "rcg-app-dev-cindia-001"
-    priority = 200
-    action = "Allow"
+    name               = "rcg-app-dev-cindia-001"
+    priority           = 200
+    action             = "Allow"
     rules = [
       {
         name = "allow-windows-update"
@@ -315,16 +315,16 @@ firewall_application_rules = {
 }
 
 route_tables = {
-  
+
   spoke-web = {
-    route_table_name = "rt-web-dev-cindia-001"
-    location = "Central India"
+    route_table_name   = "rt-web-dev-cindia-001"
+    location           = "Central India"
     resource_group_key = "spoke"
     routes = [
       {
-        name = "default-route"
+        name           = "default-route"
         address_prefix = "0.0.0.0/0"
-        next_hop_type = "VirtualAppliance"
+        next_hop_type  = "VirtualAppliance"
       }
     ]
     tags = {
@@ -333,14 +333,14 @@ route_tables = {
   }
 
   agw = {
-    route_table_name = "rt-agw-dev-cindia-001"
-    location = "Central India"
+    route_table_name   = "rt-agw-dev-cindia-001"
+    location           = "Central India"
     resource_group_key = "hub"
     routes = [
       {
-        name = "spoke-vnet-route"
+        name           = "spoke-vnet-route"
         address_prefix = "10.49.0.0/16"
-        next_hop_type = "VirtualAppliance"
+        next_hop_type  = "VirtualAppliance"
       }
     ]
     tags = {
@@ -350,14 +350,14 @@ route_tables = {
 }
 
 route_table_associations = {
-  
+
   web = {
-    subnet_key = "web-subnet"
+    subnet_key      = "web-subnet"
     route_table_key = "spoke-web"
   }
-  
+
   agw = {
-    subnet_key = "agw-subnet"
+    subnet_key      = "agw-subnet"
     route_table_key = "agw"
   }
 }
@@ -365,25 +365,25 @@ route_table_associations = {
 application_gateways = {
   agw = {
     application_gateway_name = "agw-dev-cindia-001"
-    public_ip_name = "pip-agw-dev-cindia-001"
-    location = "Central India"
-    resource_group_key = "hub"
-    subnet_key = "agw-subnet"
-    sku_name = "Standard_v2"
-    sku_tier = "Standard_v2"
-    capacity = 1
-    backend_pool_name = "be-web-dev-cindia-001"
+    public_ip_name           = "pip-agw-dev-cindia-001"
+    location                 = "Central India"
+    resource_group_key       = "hub"
+    subnet_key               = "agw-subnet"
+    sku_name                 = "Standard_v2"
+    sku_tier                 = "Standard_v2"
+    capacity                 = 1
+    backend_pool_name        = "be-web-dev-cindia-001"
     backend_vm_private_ips = [
       "10.49.1.10"
     ]
     frontend_port_name = "fp-http"
-    frontend_port = 80
-    http_setting_name = "bhs-http"
-    listener_name = "listener-http"
-    routing_rule_name = "rule-http"
-    probe_name = "probe-http"
-    probe_host = "127.0.0.1"
-    probe_path = "/"
+    frontend_port      = 80
+    http_setting_name  = "bhs-http"
+    listener_name      = "listener-http"
+    routing_rule_name  = "rule-http"
+    probe_name         = "probe-http"
+    probe_host         = "127.0.0.1"
+    probe_path         = "/"
     tags = {
       role = "application-gateway"
     }

@@ -121,13 +121,13 @@ variable "vm_extensions" {
 variable "firewalls" {
   description = "Map of Azure Firewalls"
   type = map(object({
-    firewall_name = string
-    public_ip_name = string
-    location = string
+    firewall_name      = string
+    public_ip_name     = string
+    location           = string
     resource_group_key = string
-    subnet_key = string
-    sku_tier = optional(string, "Basic")
-    tags = optional(map(string), {})
+    subnet_key         = string
+    sku_tier           = optional(string, "Basic")
+    tags               = optional(map(string), {})
   }))
 }
 
@@ -166,13 +166,13 @@ variable "firewall_application_rules" {
 
 variable "route_tables" {
   type = map(object({
-    route_table_name = string
-    location = string
+    route_table_name   = string
+    location           = string
     resource_group_key = string
     routes = list(object({
-      name = string
-      address_prefix = string
-      next_hop_type = string
+      name                   = string
+      address_prefix         = string
+      next_hop_type          = string
       next_hop_in_ip_address = optional(string)
     }))
     tags = optional(map(string), {})
@@ -181,7 +181,7 @@ variable "route_tables" {
 
 variable "route_table_associations" {
   type = map(object({
-    subnet_key = string
+    subnet_key      = string
     route_table_key = string
   }))
 }
@@ -189,24 +189,24 @@ variable "route_table_associations" {
 variable "application_gateways" {
   type = map(object({
     application_gateway_name = string
-    public_ip_name = string
-    location = string
-    resource_group_key = string
-    subnet_key = string
-    sku_name = string
-    sku_tier = string
-    capacity = number
-    backend_pool_name = string
-    backend_vm_private_ips = list(string)
-    frontend_port_name = string
-    frontend_port = number
-    http_setting_name = string
-    listener_name = string
-    routing_rule_name = string
-    probe_name = string
-    probe_host = optional(string, "127.0.0.1")
-    probe_path = optional(string, "/")
-    tags = optional(map(string), {})
+    public_ip_name           = string
+    location                 = string
+    resource_group_key       = string
+    subnet_key               = string
+    sku_name                 = string
+    sku_tier                 = string
+    capacity                 = number
+    backend_pool_name        = string
+    backend_vm_private_ips   = list(string)
+    frontend_port_name       = string
+    frontend_port            = number
+    http_setting_name        = string
+    listener_name            = string
+    routing_rule_name        = string
+    probe_name               = string
+    probe_host               = optional(string, "127.0.0.1")
+    probe_path               = optional(string, "/")
+    tags                     = optional(map(string), {})
   }))
 }
 

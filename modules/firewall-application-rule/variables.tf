@@ -26,9 +26,9 @@ variable "action" {
 variable "rules" {
   description = "Application rules"
   type = list(object({
-    name              = string
-    source_addresses  = list(string)
-    target_fqdns      = list(string)
+    name             = string
+    source_addresses = list(string)
+    target_fqdns     = list(string)
     protocols = list(object({
       type = string
       port = number
