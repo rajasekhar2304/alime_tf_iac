@@ -94,34 +94,76 @@ peerings = {
 }
 
 nsgs = {
-  web-nsg = {
-    nsg_name           = "nsg-web-dev-cindia-001"
-    resource_group_key = "spoke"
-    subnet_key         = "web-subnet"
-    location           = "Central India"
+  agw = {
+    nsg_name = "nsg-agw-dev-cindia-001"
+    location = "Central India"
+    resource_group_key = "hub"
+    subnet_key = "agw-subnet"
     security_rules = {
-
-      allow-http-from-firewall = {
-        name                       = "allow-http-from-firewall"
-        priority                   = 100
-        direction                  = "Inbound"
-        access                     = "Allow"
-        protocol                   = "Tcp"
-        source_port_range          = "*"
-        destination_port_range     = "80"
-        source_address_prefix      = "10.48.1.0/24"
+      allow-gateway-manager = {
+        name = "allow-gateway-manager"
+        priority = 100
+        direction = "Inbound"
+        access = "Allow"
+        protocol = "Tcp"
+        source_port_range = "*"
+        destination_port_range = "65200-65535"
+        source_address_prefix = "GatewayManager"
         destination_address_prefix = "*"
       }
-
+      allow-azure-load-balancer = {
+        name = "allow-azure-load-balancer"
+        priority = 110
+        direction = "Inbound"
+        access = "Allow"
+        protocol = "*"
+        source_port_range = "*"
+        destination_port_range = "*"
+        source_address_prefix = "AzureLoadBalancer"
+        destination_address_prefix = "*"
+      }
+      allow-http-internet = {
+        name = "allow-http-internet"
+        priority = 120
+        direction = "Inbound"
+        access = "Allow"
+        protocol = "Tcp"
+        source_port_range = "*"
+        destination_port_range = "80"
+        source_address_prefix = "Internet"
+        destination_address_prefix = "*"
+      }
+    }
+    tags = {
+      role = "application-gateway"
+    }
+  }
+  web-nsg = {
+    nsg_name = "nsg-web-dev-cindia-001"
+    resource_group_key = "spoke"
+    subnet_key = "web-subnet"
+    location = "Central India"
+    security_rules = {
+      allow-http-from-firewall = {
+        name = "allow-http-from-firewall"
+        priority = 100
+        direction = "Inbound"
+        access = "Allow"
+        protocol = "Tcp"
+        source_port_range = "*"
+        destination_port_range = "80"
+        source_address_prefix = "10.48.1.0/24"
+        destination_address_prefix = "*"
+      }
       allow-rdp-from-firewall = {
-        name                       = "allow-rdp-from-firewall"
-        priority                   = 110
-        direction                  = "Inbound"
-        access                     = "Allow"
-        protocol                   = "Tcp"
-        source_port_range          = "*"
-        destination_port_range     = "3389"
-        source_address_prefix      = "10.48.1.0/24"
+        name = "allow-rdp-from-firewall"
+        priority = 110
+        direction = "Inbound"
+        access = "Allow"
+        protocol = "Tcp"
+        source_port_range = "*"
+        destination_port_range = "3389"
+        source_address_prefix = "10.48.1.0/24"
         destination_address_prefix = "*"
       }
     }
