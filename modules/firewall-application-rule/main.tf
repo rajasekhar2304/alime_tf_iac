@@ -10,11 +10,11 @@ resource "azurerm_firewall_application_rule_collection" "application_rule" {
       name             = rule.value.name
       source_addresses = rule.value.source_addresses
       target_fqdns     = rule.value.target_fqdns
-      dynamic "protocols" {
+      dynamic "protocol" {
         for_each = rule.value.protocols
         content {
-          type = protocols.value.type
-          port = protocols.value.port
+          type = protocol.value.type
+          port = protocol.value.port
         }
       }
     }
