@@ -455,9 +455,7 @@ diagnostic_settings = {
     workspace_key   = "common"
     log_categories = [
       "AzureFirewallApplicationRule",
-      "AzureFirewallNetworkRule",
-      "AzureFirewallNatRule",
-      "AzureFirewallDnsProxy"
+      "AzureFirewallNetworkRule"
     ]
     metric_categories = [
       "AllMetrics"
@@ -473,20 +471,6 @@ diagnostic_settings = {
       "ApplicationGatewayAccessLog",
       "ApplicationGatewayPerformanceLog",
       "ApplicationGatewayFirewallLog"
-    ]
-    metric_categories = [
-      "AllMetrics"
-    ]
-  }
-
-  vm = {
-    diagnostic_name = "diag-vm-dev-cindia-001"
-    resource_type   = "vm"
-    resource_key    = "web"
-    workspace_key   = "common"
-    log_categories = [
-      "Administrative",
-      "Security"
     ]
     metric_categories = [
       "AllMetrics"
