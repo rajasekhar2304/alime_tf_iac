@@ -210,3 +210,25 @@ variable "application_gateways" {
   }))
 }
 
+variable "log_analytics_workspaces" {
+  description = "Log Analytics Workspace configuration"
+  type = map(object({
+    workspace_name     = string
+    location           = string
+    resource_group_key = string
+    retention_in_days = number
+    tags = map(string)
+  }))
+}
+
+variable "diagnostic_settings" {
+  description = "Diagnostic settings configuration"
+  type = map(object({
+    diagnostic_name = string
+    resource_type = string
+    resource_key  = string
+    workspace_key = string
+    log_categories = list(string)
+    metric_categories = list(string)
+  }))
+}

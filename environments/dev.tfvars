@@ -360,14 +360,20 @@ route_tables = {
     resource_group_key = "spoke"
     routes = [
       {
-        name           = "default-route"
+        name           = "default-egress-via-firewall"
         address_prefix = "0.0.0.0/0"
+        next_hop_type  = "VirtualAppliance"
+      },
+
+      {
+        name           = "agw-return-via-firewall"
+        address_prefix = "10.48.3.0/24"
         next_hop_type  = "VirtualAppliance"
       }
     ]
     tags = {
       role = "web-routing"
-    }
+    }    
   }
 
   agw = {
@@ -376,8 +382,8 @@ route_tables = {
     resource_group_key = "hub"
     routes = [
       {
-        name           = "spoke-vnet-route"
-        address_prefix = "10.49.0.0/16"
+        name           = "allow-inbound-traffic-to-websnet-via-fw"
+        address_prefix = "10.49.1.0/24"
         next_hop_type  = "VirtualAppliance"
       }
     ]
@@ -428,6 +434,62 @@ application_gateways = {
   }
 }
 
+log_analytics_workspaces = {
+  common = {
+    workspace_name     = "law-alime-dev-cindia-001"
+    location           = "Central India"
+    resource_group_key = "hub"
+    retention_in_days = 30
+    tags = {
+      role = "monitoring"
+    }
+  }
+}
 
+diagnostic_settings = {
 
+  firewall = {
+    diagnostic_name = "diag-fw-dev-cindia-001"
+    resource_type = "firewall"
+    resource_key  = "hub"
+    workspace_key = "common"
+    log_categories = [
+      "AzureFirewallApplicationRule",
+      "AzureFirewallNetworkRule",
+      "AzureFirewallNatRule",
+      "AzureFirewallDnsProxy"
+    ]
+    metric_categories = [
+      "AllMetrics"
+    ]
+  }
 
+  agw = {
+    diagnostic_name = "diag-agw-dev-cindia-001"
+    resource_type = "agw"
+    resource_key  = "web"
+    workspace_key = "common"
+    log_categories = [
+      "ApplicationGatewayAccessLog",
+      "ApplicationGatewayPerformanceLog",
+      "ApplicationGatewayFirewallLog"
+    ]
+    metric_categories = [
+      "AllMetrics"
+    ]
+  }
+
+  vm = {
+    diagnostic_name = "diag-vm-dev-cindia-001"
+    resource_type = "vm"
+    resource_key  = "web"
+    workspace_key = "common"
+    log_categories = [
+      "Administrative",
+      "Security"
+    ]
+    metric_categories = [
+      "AllMetrics"
+    ]
+  }
+}

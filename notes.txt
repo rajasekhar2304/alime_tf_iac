@@ -13,3 +13,11 @@ inc: India Central (Region)
 > terraform validate
 > terraform plan -var-file=environments/dev.tfvars
 > terraform apply -var-file=environments/dev.tfvars
+
+
+## Validate OUTBOUND Traffic ##
+
+AzureDiagnostics
+| where Category == "AzureFirewallApplicationRule"
+| project TimeGenerated, msg_s
+| order by TimeGenerated desc

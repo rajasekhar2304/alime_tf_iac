@@ -296,3 +296,46 @@ module "application_gateways" {
   )
 }
 
+module "log_analytics_workspaces" {
+  source   = "./modules/log-analytics"
+  for_each = var.log_analytics_workspaces
+
+  workspace_name = each.value.workspace_name
+  location       = each.value.location
+
+  resource_group_name = module.resource_groups[
+    each.value.resource_group_key
+  ].resource_group_name
+
+  retention_in_days = each.value.retention_in_days
+
+  tags = merge(
+    local.common_tags,
+    each.value.tags
+  )
+}
+
+module "diagnostic_settings" {
+  source   = "./modules/diagnostic-setting"
+  for_each = var.diagnostic_settings
+
+  diagnostic_name = each.value.diagnostic_name
+
+  target_resource_id = (
+    each.value.resource_type == "firewall"
+    ? module.firewalls[each.value.resource_key].firewall_id
+    : each.value.resource_type == "agw"
+    ? module.application_gateways[each.value.resource_key].application_gateway_id
+    : module.windows_vms[each.value.resource_key].vm_id
+  )
+
+  log_analytics_workspace_id = (
+    module.log_analytics_workspaces[
+      each.value.workspace_key
+    ].workspace_id
+  )
+
+  log_categories    = each.value.log_categories
+  metric_categories = each.value.metric_categories
+}
+
