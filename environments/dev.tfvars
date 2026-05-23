@@ -467,7 +467,7 @@ diagnostic_settings = {
   agw = {
     diagnostic_name = "diag-agw-dev-cindia-001"
     resource_type   = "agw"
-    resource_key    = "web"
+    resource_key    = "agw"
     workspace_key   = "common"
     log_categories = [
       "ApplicationGatewayAccessLog",
