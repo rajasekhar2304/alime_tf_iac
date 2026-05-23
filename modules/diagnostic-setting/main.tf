@@ -13,7 +13,7 @@ resource "azurerm_monitor_diagnostic_setting" "diag" {
   dynamic "enabled_metric" {
     for_each = var.metric_categories
     content {
-      category = metric.value      
+      category = enabled_metric.value      
     }
   }
 }
