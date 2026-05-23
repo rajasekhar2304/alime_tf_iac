@@ -224,11 +224,9 @@ variable "log_analytics_workspaces" {
 variable "diagnostic_settings" {
   description = "Diagnostic settings configuration"
   type = map(object({
-    diagnostic_name   = string
-    resource_type     = string
-    resource_key      = string
-    workspace_key     = string
-    log_categories    = list(string)
-    metric_categories = list(string)
+    diagnostic_name = string
+    resource_type   = string
+    resource_key    = string
+    workspace_key   = string
   }))
 }

@@ -316,29 +316,26 @@ module "log_analytics_workspaces" {
 }
 
 module "diagnostic_settings" {
-source   = "./modules/diagnostic-setting"
-for_each = var.diagnostic_settings
+  source   = "./modules/diagnostic-setting"
+  for_each = var.diagnostic_settings
 
-diagnostic_name = each.value.diagnostic_name
+  diagnostic_name = each.value.diagnostic_name
 
-target_resource_id = (
-each.value.resource_type == "firewall"
-? module.firewalls[
-each.value.resource_key
-].firewall_id
-: module.application_gateways[
-each.value.resource_key
-].application_gateway_id
-)
+  target_resource_id = (
+    each.value.resource_type == "firewall"
+    ? module.firewalls[
+        each.value.resource_key
+      ].firewall_id
+    : module.application_gateways[
+        each.value.resource_key
+      ].application_gateway_id
+  )
 
-log_analytics_workspace_id = (
-module.log_analytics_workspaces[
-each.value.workspace_key
-].workspace_id
-)
-
-log_categories    = each.value.log_categories
-metric_categories = each.value.metric_categories
+  log_analytics_workspace_id = (
+    module.log_analytics_workspaces[
+      each.value.workspace_key
+    ].workspace_id
+  )
 }
 
 

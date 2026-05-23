@@ -453,13 +453,6 @@ diagnostic_settings = {
     resource_type   = "firewall"
     resource_key    = "hub"
     workspace_key   = "common"
-    log_categories = [
-      "AzureFirewallApplicationRule",
-      "AzureFirewallNetworkRule"
-    ]
-    metric_categories = [
-      "AllMetrics"
-    ]
   }
 
   agw = {
@@ -467,13 +460,5 @@ diagnostic_settings = {
     resource_type   = "agw"
     resource_key    = "agw"
     workspace_key   = "common"
-    log_categories = [
-      "ApplicationGatewayAccessLog",
-      "ApplicationGatewayPerformanceLog",
-      "ApplicationGatewayFirewallLog"
-    ]
-    metric_categories = [
-      "AllMetrics"
-    ]
   }
 }
