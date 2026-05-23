@@ -324,11 +324,11 @@ module "diagnostic_settings" {
   target_resource_id = (
     each.value.resource_type == "firewall"
     ? module.firewalls[
-        each.value.resource_key
-      ].firewall_id
+      each.value.resource_key
+    ].firewall_id
     : module.application_gateways[
-        each.value.resource_key
-      ].application_gateway_id
+      each.value.resource_key
+    ].application_gateway_id
   )
 
   log_analytics_workspace_id = (
