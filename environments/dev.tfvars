@@ -373,7 +373,7 @@ route_tables = {
     ]
     tags = {
       role = "web-routing"
-    }    
+    }
   }
 
   agw = {
@@ -439,7 +439,7 @@ log_analytics_workspaces = {
     workspace_name     = "law-alime-dev-cindia-001"
     location           = "Central India"
     resource_group_key = "hub"
-    retention_in_days = 30
+    retention_in_days  = 30
     tags = {
       role = "monitoring"
     }
@@ -450,9 +450,9 @@ diagnostic_settings = {
 
   firewall = {
     diagnostic_name = "diag-fw-dev-cindia-001"
-    resource_type = "firewall"
-    resource_key  = "hub"
-    workspace_key = "common"
+    resource_type   = "firewall"
+    resource_key    = "hub"
+    workspace_key   = "common"
     log_categories = [
       "AzureFirewallApplicationRule",
       "AzureFirewallNetworkRule",
@@ -466,9 +466,9 @@ diagnostic_settings = {
 
   agw = {
     diagnostic_name = "diag-agw-dev-cindia-001"
-    resource_type = "agw"
-    resource_key  = "web"
-    workspace_key = "common"
+    resource_type   = "agw"
+    resource_key    = "web"
+    workspace_key   = "common"
     log_categories = [
       "ApplicationGatewayAccessLog",
       "ApplicationGatewayPerformanceLog",
@@ -481,9 +481,9 @@ diagnostic_settings = {
 
   vm = {
     diagnostic_name = "diag-vm-dev-cindia-001"
-    resource_type = "vm"
-    resource_key  = "web"
-    workspace_key = "common"
+    resource_type   = "vm"
+    resource_key    = "web"
+    workspace_key   = "common"
     log_categories = [
       "Administrative",
       "Security"
