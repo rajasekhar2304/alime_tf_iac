@@ -15,9 +15,37 @@ inc: India Central (Region)
 > terraform apply -var-file=environments/dev.tfvars
 
 
-## Validate OUTBOUND Traffic ##
-
+## CHECK LOGS ARE COMING ##
 AzureDiagnostics
-| where Category == "AzureFirewallApplicationRule"
-| project TimeGenerated, msg_s
+| where TimeGenerated > ago(30m)
 | order by TimeGenerated desc
+
+## CHECK ONLY FIREWALL LOGS ##
+AzureDiagnostics
+| where ResourceType == "AZUREFIREWALLS"
+| where TimeGenerated > ago(30m)
+| project
+TimeGenerated,
+Category,
+msg_s
+| order by TimeGenerated desc
+
+## VALIDATE INBOUND TRAFFIC ##
+AzureDiagnostics
+| where ResourceType == "AZUREFIREWALLS"
+| where msg_s contains "10.48.3."
+| where msg_s contains "10.49.1.10"
+| project
+TimeGenerated,
+msg_s
+| order by TimeGenerated desc
+
+## Validate OUTBOUND Traffic ##
+AzureDiagnostics
+| where ResourceType == "AZUREFIREWALLS"
+| where msg_s contains "10.49.1."
+| project
+TimeGenerated,
+msg_s
+| order by TimeGenerated desc
+

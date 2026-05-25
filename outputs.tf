@@ -25,3 +25,10 @@ output "nsg_names" {
     k => nsg.nsg_name
   }
 }
+
+output "vm_names" {
+  value = {
+    for k, vm in module.windows_vms :
+    k => vm.vm_name
+  }
+}
