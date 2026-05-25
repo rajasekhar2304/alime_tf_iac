@@ -32,3 +32,24 @@ output "vm_names" {
     k => vm.vm_name
   }
 }
+
+output "fw_names" {
+  value = {
+    for k, fw in module.firewalls :
+    k => fw.firewall_name
+  }
+}
+
+output "rt_names" {
+  value = {
+    for k, rt in module.route_tables :
+    k => rt.route_table_name
+  }
+}
+
+output "agw_names" {
+  value = {
+    for k, agw in module.application_gateways :
+    k => agw.application_gateway_name
+  }
+}
