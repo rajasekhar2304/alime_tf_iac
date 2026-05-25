@@ -2,47 +2,40 @@ environment = "dev"
 
 resource_groups = {
   hub = {
-    rg_name     = "rg-alime-hub-dev-cindia-001"
+    rg_name     = "rg-hub-dev-cindia-001"
     rg_location = "Central India"
     tags = {
-      Owner      = "devops"
-      Project    = "alime"
-      CostCenter = "IT"
+      role      = "hub-rg"      
     }
   }
   spoke = {
-    rg_name     = "rg-alime-spoke-dev-cindia-001"
+    rg_name     = "rg-spoke-dev-cindia-001"
     rg_location = "Central India"
     tags = {
-      Owner      = "devops"
-      Project    = "alime"
-      CostCenter = "IT"
+      role      = "spoke-rg"
+      
     }
   }
 }
 
 vnets = {
   hub-vnet = {
-    vnet_name          = "vnet-alime-hub-dev-cindia-001"
+    vnet_name          = "vnet-hub-dev-cindia-001"
     resource_group_key = "hub"
     location           = "Central India"
     address_space      = ["10.48.0.0/16"]
     tags = {
-      Owner      = "devops"
-      Project    = "alime"
-      CostCenter = "IT"
+      role      = "hub-vnet"
     }
   }
   spoke-vnet = {
-    vnet_name          = "vnet-alime-spoke-dev-cindia-001"
+    vnet_name          = "vnet-spoke-dev-cindia-001"
     resource_group_key = "spoke"
     location           = "Central India"
     address_space      = ["10.49.0.0/16"]
 
     tags = {
-      Owner      = "devops"
-      Project    = "alime"
-      CostCenter = "IT"
+      role      = "spoke-vnet"
     }
   }
 }
@@ -436,7 +429,7 @@ application_gateways = {
 
 log_analytics_workspaces = {
   common = {
-    workspace_name     = "law-alime-dev-cindia-001"
+    workspace_name     = "law-dev-cindia-001"
     location           = "Central India"
     resource_group_key = "hub"
     retention_in_days  = 30
