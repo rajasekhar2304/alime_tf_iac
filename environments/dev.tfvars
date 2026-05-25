@@ -5,15 +5,15 @@ resource_groups = {
     rg_name     = "rg-hub-dev-cindia-001"
     rg_location = "Central India"
     tags = {
-      role      = "hub-rg"      
+      role = "hub-rg"
     }
   }
   spoke = {
     rg_name     = "rg-spoke-dev-cindia-001"
     rg_location = "Central India"
     tags = {
-      role      = "spoke-rg"
-      
+      role = "spoke-rg"
+
     }
   }
 }
@@ -25,7 +25,7 @@ vnets = {
     location           = "Central India"
     address_space      = ["10.48.0.0/16"]
     tags = {
-      role      = "hub-vnet"
+      role = "hub-vnet"
     }
   }
   spoke-vnet = {
@@ -35,7 +35,7 @@ vnets = {
     address_space      = ["10.49.0.0/16"]
 
     tags = {
-      role      = "spoke-vnet"
+      role = "spoke-vnet"
     }
   }
 }

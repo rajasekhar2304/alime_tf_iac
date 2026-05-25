@@ -3,8 +3,8 @@ locals {
     Environment = var.environment
     ManagedBy   = "Terraform"
     Compliance  = "CAF"
-    Owner      = "devops"
-    Project    = "alime"
-    CostCenter = "IT"    
+    Owner       = "devops"
+    Project     = "alime"
+    CostCenter  = "IT"
   }
 }
